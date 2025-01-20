@@ -52,6 +52,8 @@ using StringTools;
 
 class PlayState extends MusicBeatState
 {
+	public static var font:String = '';
+
 	public static var curStage:String = '';
 	public static var SONG:SwagSong;
 	public static var isStoryMode:Bool = false;
