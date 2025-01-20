@@ -28,4 +28,5 @@ haxelib run lime rebuild extension-webm linux
 haxelib run lime rebuild extension-webm mac
 haxelib install newgrounds
 haxelib install polymod
+haxelib remove jsonpath
 echo Finished!
