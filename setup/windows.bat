@@ -25,5 +25,6 @@ haxelib run lime rebuild extension-webm windows
 haxelib git newgrounds https://github.com/ninjamuffin99/Newgrounds 31fd66bc6e501dc640ff05bd94a83074924d4a96
 haxelib install polymod
 haxelib remove jsonpath
+haxelib git jsonpath https://github.com/EliteMasterEric/jsonpath 7a24193717b36393458c15c0435bb7c4470ecdda
 echo Finished!
 pause
