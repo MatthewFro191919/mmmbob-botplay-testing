@@ -22,7 +22,7 @@ haxelib git faxe https://github.com/ashea-code/faxe
 haxelib install actuate
 haxelib git extension-webm https://github.com/KadeDev/extension-webm
 haxelib run lime rebuild extension-webm windows
-haxelib install newgrounds
+haxelib git newgrounds https://github.com/ninjamuffin99/Newgrounds 31fd66bc6e501dc640ff05bd94a83074924d4a96
 haxelib install polymod
 haxelib remove jsonpath
 echo Finished!
