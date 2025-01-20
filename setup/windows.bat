@@ -24,5 +24,6 @@ haxelib git extension-webm https://github.com/KadeDev/extension-webm
 haxelib run lime rebuild extension-webm windows
 haxelib install newgrounds
 haxelib install polymod
+haxelib remove jsonpath
 echo Finished!
 pause
