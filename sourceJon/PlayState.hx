@@ -79,14 +79,12 @@ class PlayState extends MusicBeatState
 	var halloweenLevel:Bool = false;
 
 	var songLength:Float = 0;
-	
-	#if windows
-	// Discord RPC variables
+
 	var storyDifficultyText:String = "";
 	var iconRPC:String = "";
 	var detailsText:String = "";
 	var detailsPausedText:String = "";
-	#end
+	var botText:String = "";
 
 	private var vocals:FlxSound;
 
@@ -262,10 +260,15 @@ class PlayState extends MusicBeatState
 		// String for when the game is paused
 		detailsPausedText = "Paused - " + detailsText;
 
-		// Updating Discord Rich Presence.
-		DiscordClient.changePresence(detailsText + " " + SONG.song + " (" + storyDifficultyText + ") " + generateRanking(), "\nAcc: " + truncateFloat(accuracy, 2) + "% | Score: " + songScore + " | Misses: " + misses  , iconRPC);
+		#if desktop
+		DiscordClient.changePresence(SONG.song,
+			"\n" + botText + "Acc: "
+			+ truncateFloat(accuracy, 2)
+			+ "% | Score: "
+			+ songScore
+			+ " | Misses: "
+			+ misses, iconRPC);
 		#end
-
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
@@ -1714,10 +1717,16 @@ class PlayState extends MusicBeatState
 			case 'Bopeebo' | 'Philly' | 'Blammed' | 'Cocoa' | 'Eggnog': allowedToHeadbang = true;
 			default: allowedToHeadbang = false;
 		}
-		
-		#if windows
-		// Updating Discord Rich Presence (with Time Left)
-		DiscordClient.changePresence(detailsText + " " + SONG.song + " (" + storyDifficultyText + ") " + generateRanking(), "\nAcc: " + truncateFloat(accuracy, 2) + "% | Score: " + songScore + " | Misses: " + misses  , iconRPC);
+
+		#if desktop
+		DiscordClient.changePresence("PAUSED on "
+			+ SONG.song,
+			botText + "Acc: "
+			+ truncateFloat(accuracy, 2)
+			+ "% | Score: "
+			+ songScore
+			+ " | Misses: "
+			+ misses, iconRPC);
 		#end
 	}
 
@@ -1996,9 +2005,17 @@ class PlayState extends MusicBeatState
 				vocals.pause();
 			}
 
-			#if windows
-			DiscordClient.changePresence("PAUSED on " + SONG.song + " (" + storyDifficultyText + ") " + generateRanking(), "Acc: " + truncateFloat(accuracy, 2) + "% | Score: " + songScore + " | Misses: " + misses  , iconRPC);
-			#end
+                        #if desktop
+			DiscordClient.changePresence(SONG.song,
+				"\n" + botText + "Acc: "
+				+ truncateFloat(accuracy, 2)
+				+ "% | Score: "
+				+ songScore
+				+ " | Misses: "
+				+ misses, iconRPC, true,
+				FlxG.sound.music.length
+				- Conductor.songPosition);
+                        #end
 			if (!startTimer.finished)
 				startTimer.active = false;
 		}
@@ -2044,8 +2061,16 @@ class PlayState extends MusicBeatState
 		vocals.time = Conductor.songPosition;
 		vocals.play();
 
-		#if windows
-		DiscordClient.changePresence(detailsText + " " + SONG.song + " (" + storyDifficultyText + ") " + generateRanking(), "\nAcc: " + truncateFloat(accuracy, 2) + "% | Score: " + songScore + " | Misses: " + misses  , iconRPC);
+		#if desktop
+		DiscordClient.changePresence(detailsText
+			+ " "
+			+ SONG.song,
+			"\n" + botText + "Acc: "
+			+ truncateFloat(accuracy, 2)
+			+ "% | Score: "
+			+ songScore
+			+ " | Misses: "
+			+ misses, iconRPC);
 		#end
 	}
 
@@ -2493,6 +2518,7 @@ class PlayState extends MusicBeatState
 
 		FlxG.watch.addQuick("beatShit", curBeat);
 		FlxG.watch.addQuick("stepShit", curStep);
+
 		if (loadRep) // rep debug
 			{
 				FlxG.watch.addQuick('rep rpesses',repPresses);
@@ -2529,26 +2555,17 @@ class PlayState extends MusicBeatState
 					// FlxG.switchState(new PlayState());
 			}
 		}
-
 		if (health <= 0 && !botPlay)
 		{
-			boyfriend.stunned = true;
-
-			persistentUpdate = false;
-			persistentDraw = false;
-			paused = true;
-
-			vocals.stop();
-			FlxG.sound.music.stop();
-
-			openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-
-			#if windows
-			// Game Over doesn't get his own variable because it's only used here
-			DiscordClient.changePresence("GAME OVER -- " + SONG.song + " (" + storyDifficultyText + ") " + generateRanking(),"\nAcc: " + truncateFloat(accuracy, 2) + "% | Score: " + songScore + " | Misses: " + misses  , iconRPC);
-			#end
-
-			// FlxG.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+			if(!perfectMode)
+			{
+				persistentUpdate = false;
+				persistentDraw = false;
+				paused = true;
+	
+				vocals.stop();
+				FlxG.sound.music.stop();
+			}
 		}
 
 		if (unspawnNotes[0] != null)
