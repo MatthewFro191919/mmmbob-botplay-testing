@@ -3285,26 +3285,27 @@ class PlayState extends MusicBeatState
 						}
 					 */
 
-			if(botPlay) {
-				var time:Float = 0.15;
-				if(note.isSustainNote) {
-					time += 0.15;
+			    if(botPlay) {
+			     	var time:Float = 0.15;
+			    	if(note.isSustainNote) {
+				    	time += 0.15;	
+					}
 				}
 
-				if (daNote.wasGoodHit)
-				{
-					daNote.kill();
-					notes.remove(daNote, true);
-					daNote.destroy();
-				}
+			    if (daNote.wasGoodHit) 
+		        {
+		   			daNote.kill();
+		   			notes.remove(daNote, true);
+				    daNote.destroy();
+	            }
 			}
-			}
-			if(botPlay) {
-				boyfriend.holdTimer = 0;
-				var targetHold:Float = Conductor.stepCrochet * 0.001 * 4;
-				if(boyfriend.holdTimer + 0.2 > targetHold) {
-					boyfriend.holdTimer = targetHold - 0.2;
-				}
+		    if(botPlay) {
+		    		boyfriend.holdTimer = 0;
+		     		var targetHold:Float = Conductor.stepCrochet * 0.001 * 4;
+		     		if(boyfriend.holdTimer + 0.2 > targetHold) {
+			     		boyfriend.holdTimer = targetHold - 0.2;
+			    	}
+			    }
 			}
 	
 			if ((up || right || down || left) && generatedMusic || (upHold || downHold || leftHold || rightHold) && loadRep && generatedMusic)
