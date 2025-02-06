@@ -3288,15 +3288,14 @@ class PlayState extends MusicBeatState
 				if(note.isSustainNote) {
 					time += 0.15;
 				}
-				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
 
-					if (daNote.wasGoodHit)
-					{
-						daNote.kill();
-						notes.remove(daNote, true);
-						daNote.destroy();
-					}
+				if (daNote.wasGoodHit)
+				{
+					daNote.kill();
+					notes.remove(daNote, true);
+					daNote.destroy();
 				}
+			}
 			}
 			if(botPlay) {
 				boyfriend.holdTimer = 0;
