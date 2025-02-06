@@ -257,6 +257,8 @@ class PlayState extends MusicBeatState
 			detailsText = "Freeplay";
 		}
 
+		if (botPlay) botText = "Bot Play - ";
+
 		// String for when the game is paused
 		detailsPausedText = "Paused - " + detailsText;
 
