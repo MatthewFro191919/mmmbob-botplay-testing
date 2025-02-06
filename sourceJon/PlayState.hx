@@ -222,7 +222,6 @@ class PlayState extends MusicBeatState
 		repPresses = 0;
 		repReleases = 0;
 
-		#if windows
 		// Making difficulty text for Discord Rich Presence.
 		switch (storyDifficulty)
 		{
