@@ -117,6 +117,8 @@ class PlayState extends MusicBeatState
 	private var strumLineNotes:FlxTypedGroup<FlxSprite>;
 	private var playerStrums:FlxTypedGroup<FlxSprite>;
 
+	var note:Note;
+
 	private var camZooming:Bool = false;
 	private var curSong:String = "";
 
