@@ -78,6 +78,7 @@ class Note extends FlxSprite
 				setGraphicSize(Std.int(width * 0.7));
 				updateHitbox();
 				antialiasing = true;
+				canBeHit = false;
 		}
 		else if (mustHitNotes)
 		{
@@ -104,6 +105,7 @@ class Note extends FlxSprite
 				setGraphicSize(Std.int(width * 0.7));
 				updateHitbox();
 				antialiasing = true;
+				canBeHit = true;
 		}
 		else
 		{
